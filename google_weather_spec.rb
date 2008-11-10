@@ -1,4 +1,3 @@
-require 'rspec'
 require 'google_weather'
 =begin 
 <?xml version="1.0"?>
@@ -40,6 +39,15 @@ require 'google_weather'
 </xml_api_reply>
 =end
 
+describe GoogleWeather, "without a location" do
+  before(:each) do
+    @weather = GoogleWeather::Connection.new
+  end
+  
+  it("should raise a connection error") {pending; @weather.info.should_raise(GoogleWeather::LocationError)}
+
+end
+
 describe GoogleWeather do
   before(:each) do
     @response = %Q[<?xml version="1.0"?>
@@ -79,11 +87,17 @@ describe GoogleWeather do
   ...
 </weather>
 </xml_api_reply>]
-    @weather = GoogleWeather.new(:location => 'Drammen')
-    @weather.stub!(:raw_data).and_return(@response)
+    @weather = GoogleWeather::Connection.new(:location => 'Drammen')
+    Net::HTTP.stub!(:get).and_return(@response)
   end
   
-  it "should have forecast information"
-    
-  end
+  it("should have forecast information"){@weather.info.should be_a_kind_of(GoogleWeather::ForecastInformation)}  
+  it("should get the city nicely") { (@weather.forecast_information/'city').first['data'].should == 'Drammen, Buskerud'}
+  # it("should map the city") {@weather.info.city.should == "Drammen, Buskerud"}
+  # it("should map the postal code") {@weather.info.postal_code.should == "Drammen" }
+  # it("should map the latitude") { @weather.info.latitude.should == "" }
+  # it("should map the longitude") { @weather.info.longitude.should == "" }
+  # it("should set the date") { @weather.info.forecast_date.should be_a_kind_of(Date) }
+  # it("should set the lookup date") { @weather.info.connection_date.should be_a_kind_of(DateTime) }
+  # it("should set the unit system") { @weather.info.unit_system.should == 'US' }
 end

@@ -92,11 +92,11 @@ describe GoogleWeather do
   end
   
   it("should have forecast information"){@weather.info.should be_a_kind_of(GoogleWeather::ForecastInformation)}  
-  it("should get the city nicely") { (@weather.forecast_information('city').should == 'Drammen, Buskerud'}
-  # it("should map the city") {@weather.info.city.should == "Drammen, Buskerud"}
-  # it("should map the postal code") {@weather.info.postal_code.should == "Drammen" }
-  # it("should map the latitude") { @weather.info.latitude.should == "" }
-  # it("should map the longitude") { @weather.info.longitude.should == "" }
+  it("should get the city nicely") { @weather.forecast_information('city').should == 'Drammen, Buskerud'}
+  it("should map the city") {@weather.info.city.should == "Drammen, Buskerud"}
+  it("should map the postal code") {@weather.info.postal_code.should == "Drammen" }
+  it("should map the latitude") { @weather.info.latitude.should == "" }
+  it("should map the longitude") { @weather.info.longitude.should == "" }
   # it("should set the date") { @weather.info.forecast_date.should be_a_kind_of(Date) }
   # it("should set the lookup date") { @weather.info.connection_date.should be_a_kind_of(DateTime) }
   # it("should set the unit system") { @weather.info.unit_system.should == 'US' }

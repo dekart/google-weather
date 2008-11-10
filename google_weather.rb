@@ -20,11 +20,15 @@ module GoogleWeather
     
     def forecast_information(item)
       ((parsed_data/'forecast_information').first/item).first['data']
-      
     end
     
     def info
-      GoogleWeather::ForecastInformation.new(:city => forecast_information('city'))
+      GoogleWeather::ForecastInformation.new(
+        :city => forecast_information('city'),
+        :postal_code => forecast_information('postal_code'),
+        :latitude => forecast_information('latitude_e6'),
+        :longitude => forecast_information('longitude_e6')
+      )
     end
   end
   

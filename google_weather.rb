@@ -18,12 +18,13 @@ module GoogleWeather
       Hpricot(raw_data)
     end
     
-    def forecast_information
-      (parsed_data/'forecast_information').first
+    def forecast_information(item)
+      ((parsed_data/'forecast_information').first/item).first['data']
+      
     end
     
     def info
-      GoogleWeather::ForecastInformation.new(:city => (forecast_information/'city'))
+      GoogleWeather::ForecastInformation.new(:city => forecast_information('city'))
     end
   end
   

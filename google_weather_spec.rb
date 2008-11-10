@@ -92,7 +92,7 @@ describe GoogleWeather do
   end
   
   it("should have forecast information"){@weather.info.should be_a_kind_of(GoogleWeather::ForecastInformation)}  
-  it("should get the city nicely") { (@weather.forecast_information/'city').first['data'].should == 'Drammen, Buskerud'}
+  it("should get the city nicely") { (@weather.forecast_information('city').should == 'Drammen, Buskerud'}
   # it("should map the city") {@weather.info.city.should == "Drammen, Buskerud"}
   # it("should map the postal code") {@weather.info.postal_code.should == "Drammen" }
   # it("should map the latitude") { @weather.info.latitude.should == "" }
